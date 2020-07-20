@@ -1,0 +1,7 @@
+mqtt.serverUrl=tcp://server:1883
+mqtt.user=
+mqtt.password=
+mqtt.connectionTimeout=10
+mqtt.clientId=
+
+mqtt.topic.authorizationRequests=
