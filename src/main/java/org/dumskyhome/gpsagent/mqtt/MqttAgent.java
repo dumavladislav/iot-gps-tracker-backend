@@ -121,21 +121,29 @@ public class MqttAgent implements MqttCallback {
 
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-        logger.info("TOPIC:"+ s + " || MESSAGE RECEIVED: " + mqttMessage.toString());
-        if (s.equals(env.getProperty("mqtt.topic.gpsData"))) {
-            logger.info("GPS Data received. Parsing....");
-            JsonGpsDataMessage jsonGpsDataMessage = objectMapper.readValue(mqttMessage.toString(), JsonGpsDataMessage.class);
+//        if (!mqttMessage.toString().equals("") ) {
+            logger.info("TOPIC:" + s + " || MESSAGE RECEIVED: " + mqttMessage.toString());
+            if (s.equals(env.getProperty("mqtt.topic.gpsData"))) {
+                logger.info("GPS Data received. Parsing....");
+                try {
+                    JsonGpsDataMessage jsonGpsDataMessage = objectMapper.readValue(mqttMessage.toString(), JsonGpsDataMessage.class);
 
-            logger.info(jsonGpsDataMessage.getData().getLat().toString());
-            //gpsAgentService.saveGpsData(jsonGpsDataMessage).<ResponseEntity>thenApply(ResponseEntity::ok);
-            GpsData gpsData = gpsAgentDao.saveGpsData(new GpsData(
-                    jsonGpsDataMessage.getHeader().getMacAddress(),
-                    jsonGpsDataMessage.getData().getMillis(),
-                    jsonGpsDataMessage.getData().getLat(),
-                    jsonGpsDataMessage.getData().getLng()
-            ));
+                    logger.info(jsonGpsDataMessage.getData().getLat().toString());
+                    //gpsAgentService.saveGpsData(jsonGpsDataMessage).<ResponseEntity>thenApply(ResponseEntity::ok);
+                    GpsData gpsData = gpsAgentDao.saveGpsData(new GpsData(
+                            jsonGpsDataMessage.getHeader().getMacAddress(),
+                            jsonGpsDataMessage.getData().getMillis(),
+                            jsonGpsDataMessage.getData().getLat(),
+                            jsonGpsDataMessage.getData().getLng(),
+                            jsonGpsDataMessage.getData().getRtcTimestamp()
+                    ));
+                }
+                catch(Exception e) {
+                    logger.error("NOT VALID MESSAGE " + mqttMessage.toString());
+                }
 
-        }
+            }
+//        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 @Entity
 public class GpsData extends AuditModel {
@@ -17,16 +18,27 @@ public class GpsData extends AuditModel {
     private long millisSinceStart;
     private Double lat;
     private Double lng;
+    private Timestamp rtcTimestamp;
+
+
+    public Timestamp getDatetime() {
+        return rtcTimestamp;
+    }
+
+    public void setDatetime(Timestamp rtcTimestamp) {
+        this.rtcTimestamp = rtcTimestamp;
+    }
 
     public GpsData() {
 
     }
 
-    public GpsData(String deviceId, long millisSinceStart, Double lat, Double lng) {
+    public GpsData(String deviceId, long millisSinceStart, Double lat, Double lng, Timestamp rtcTimestamp) {
         this.deviceId = deviceId;
         this.millisSinceStart = millisSinceStart;
         this.lat = lat;
         this.lng = lng;
+        this.rtcTimestamp = rtcTimestamp;
     }
 
     public long getId() {

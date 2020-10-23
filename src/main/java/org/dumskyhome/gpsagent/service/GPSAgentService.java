@@ -30,11 +30,16 @@ public class GPSAgentService {
 
     @Async
     public CompletableFuture<Long> saveGpsData(JsonGpsDataMessage jsonGpsDataMessage) {
+
+        System.out.println("Received Timestamp: ");
+        System.out.println(jsonGpsDataMessage.getData().getRtcTimestamp());
+
         GpsData gpsData = gpsAgentDao.saveGpsData(new GpsData(
                 jsonGpsDataMessage.getHeader().getMacAddress(),
                 jsonGpsDataMessage.getData().getMillis(),
                 jsonGpsDataMessage.getData().getLat(),
-                jsonGpsDataMessage.getData().getLng()
+                jsonGpsDataMessage.getData().getLng(),
+                jsonGpsDataMessage.getData().getRtcTimestamp()
         ));
         return CompletableFuture.completedFuture(gpsData.getId());
     }
