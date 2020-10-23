@@ -122,7 +122,7 @@ public class MqttAgent implements MqttCallback {
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
 //        if (!mqttMessage.toString().equals("") ) {
-            logger.info("TOPIC:" + s + " || MESSAGE RECEIVED: " + mqttMessage.toString());
+            logger.info("TOPIC:" + s + " | MESSAGE RECEIVED: " + mqttMessage.toString());
             if (s.equals(env.getProperty("mqtt.topic.gpsData"))) {
                 logger.info("GPS Data received. Parsing....");
                 try {
