@@ -33,3 +33,4 @@ build/
 # src/main/resources/application.properties
 # src/main/resources/mqtt.properties
 GPSDEV*
+*tcp*1883

@@ -50,6 +50,7 @@ pipeline {
                         ' -e DB_URL=$DB_URL' +
                         ' -e DB_USR=$DB_USR' +
                         ' -e DB_PASSWORD=$DB_PASSWORD' +
+                        ' -e DB_SCHEMA=$DB_SCHEMA' +
                         ' -e MQTT_SERVER_URL=$MQTT_SERVER_URL' +
                         ' -e MQTT_USR=$MQTT_USR' +
                         ' -e MQTT_PASSWORD=$MQTT_PASSWORD' +
